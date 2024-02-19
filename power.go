@@ -49,6 +49,16 @@ func readBatteryCapacity() (int, error) {
 	return capacityInt, nil
 }
 
+func readBatteryStatus() (string, error) {
+	status_filepath := "/sys/class/power_supply/BAT0/status"
+	status, err := os.ReadFile(status_filepath)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.TrimSpace(string(status)), nil
+}
+
 func displayBatteryPower(power float64) {
 	fmt.Printf("Battery Power: %.3f W\n", power)
 }
@@ -57,16 +67,22 @@ func displayBatteryCapacity(capacity int) {
 	fmt.Printf("Battery Capacity: %d%%\n", capacity)
 }
 
+func displayBatteryStatus(status string) {
+	fmt.Printf("Battery Status: %s\n", status)
+}
+
 func main() {
 	for {
 		clearTerminal()
 		batteryPower, _ := readBatteryPower()
+		batteryStatus, _ := readBatteryStatus()
 		capacity, err := readBatteryCapacity()
 
 		if err != nil {
 			fmt.Printf("Error reading battery stats: %v\n", err)
 			os.Exit(1)
 		}
+		displayBatteryStatus(batteryStatus)
 		displayBatteryPower(batteryPower)
 		displayBatteryCapacity(capacity)
 		time.Sleep(500 * time.Millisecond)
