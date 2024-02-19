@@ -4,10 +4,10 @@ A simple code written in `go` to read and display current power consumption of n
 
 # Pre-requisite:
 
--golang should be installed in your system.
+- golang should be installed in your system.
 
 # Setup
 
--Clone this repo and open the directory in terminal.
--Run:
+- Clone this repo and open the directory in terminal.
+- Run : 
 `go run power.go`
