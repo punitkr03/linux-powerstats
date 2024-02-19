@@ -60,7 +60,7 @@ func displayBatteryCapacity(capacity int) {
 func main() {
 	for {
 		clearTerminal()
-		batteryPower, err := readBatteryPower()
+		batteryPower, _ := readBatteryPower()
 		capacity, err := readBatteryCapacity()
 
 		if err != nil {
